@@ -25,3 +25,9 @@ func (repo *ConditionRepo) PutConditionByStoreName(storeName string, condition n
 	}
 	return nil
 }
+
+// CreateCondition _
+func (repo *ConditionRepo) CreateCondition(condition numberplate.Condition) error {
+	repo.Condition = append(repo.Condition, condition)
+	return nil
+}

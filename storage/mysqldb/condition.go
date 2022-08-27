@@ -31,3 +31,9 @@ func (repo *ConditionRepo) PutConditionByStoreName(storeName string, condition n
 		"remind":   condition.Remind,
 	}).Error
 }
+
+// CreateCondition _
+func (repo *ConditionRepo) CreateCondition(condition numberplate.Condition) error {
+	// TODO: CreateCondition
+	return nil
+}

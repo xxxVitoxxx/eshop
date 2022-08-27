@@ -40,3 +40,19 @@ func TestPutConditionByStoreName(t *testing.T) {
 		assert.Equal(t, c.Remind, fakeRepo.Condition[0].Remind)
 	})
 }
+
+func TestCreateCondition(t *testing.T) {
+	fakeRepo := fake.NewConditionRepo()
+	s := numberplate.NewService(fakeRepo)
+
+	t.Run("CreateCondition", func(t *testing.T) {
+		condition := numberplate.Condition{
+			StoreName: "eshop",
+			HowMany:   10,
+			HowLong:   40,
+			Remind:    10,
+		}
+		assert.NoError(t, s.CreateCondition(condition))
+		assert.Equal(t, condition, fakeRepo.Condition[0])
+	})
+}
