@@ -11,7 +11,7 @@ type ConditionRepo struct {
 }
 
 // NewConditionRepo will return instance
-func NewConditionRepo(db *gorm.DB) *ConditionRepo {
+func NewConditionRepo(db *gorm.DB) numberplate.ConditionRepository {
 	return &ConditionRepo{db}
 }
 
