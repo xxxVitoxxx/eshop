@@ -1,6 +1,6 @@
 package numberplate
 
-// Repository _
-type Repository interface {
+// ConditionRepository _
+type ConditionRepository interface {
 	PutCondition(condition PutCondition) error
 }

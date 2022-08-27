@@ -2,15 +2,15 @@ package numberplate
 
 // Service _
 type Service struct {
-	r Repository
+	cr ConditionRepository
 }
 
 // NewService will return instance
-func NewService(r Repository) *Service {
-	return &Service{r}
+func NewService(cr ConditionRepository) *Service {
+	return &Service{cr}
 }
 
 // PutCondition 更新條件
 func (s *Service) PutCondition(condition PutCondition) error {
-	return s.r.PutCondition(condition)
+	return s.cr.PutCondition(condition)
 }
