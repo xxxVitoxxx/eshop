@@ -9,13 +9,13 @@ import (
 )
 
 func TestPutCondition(t *testing.T) {
-	fakeNPRepo := fake.NewNumberPlateRepo()
-	s := numberplate.NewService(fakeNPRepo)
+	fakeRepo := fake.NewConditionRepo()
+	s := numberplate.NewService(fakeRepo)
 
 	// mock condition
-	fakeNPRepo.HowMany = 20
-	fakeNPRepo.HowLong = 60
-	fakeNPRepo.Remind = 5
+	fakeRepo.HowMany = 20
+	fakeRepo.HowLong = 60
+	fakeRepo.Remind = 5
 
 	t.Run("PutCondition success", func(t *testing.T) {
 		c := numberplate.PutCondition{
@@ -24,8 +24,8 @@ func TestPutCondition(t *testing.T) {
 			Remind:  10,
 		}
 		assert.NoError(t, s.PutCondition(c))
-		assert.Equal(t, c.HowMany, fakeNPRepo.HowMany)
-		assert.Equal(t, c.HowLong, fakeNPRepo.HowLong)
-		assert.Equal(t, c.Remind, fakeNPRepo.Remind)
+		assert.Equal(t, c.HowMany, fakeRepo.HowMany)
+		assert.Equal(t, c.HowLong, fakeRepo.HowLong)
+		assert.Equal(t, c.Remind, fakeRepo.Remind)
 	})
 }
