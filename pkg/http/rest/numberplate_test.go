@@ -14,14 +14,14 @@ import (
 	"github.com/xxxVitoxxx/eshop/storage/fake"
 )
 
-func TestPutCondition(t *testing.T) {
+func TestPutConditionByStoreName(t *testing.T) {
 	r := gin.Default()
 	fakeRepo := fake.NewConditionRepo()
 	s := numberplate.NewService(fakeRepo)
 	handler := NewNumberPlateHandler(s)
 	handler.Route(r)
 
-	t.Run("PutCondition success", func(t *testing.T) {
+	t.Run("PutConditionByStoreName success", func(t *testing.T) {
 		condition, _ := json.Marshal(numberplate.PutCondition{
 			HowMany: 10,
 			HowLong: 60,
@@ -30,7 +30,7 @@ func TestPutCondition(t *testing.T) {
 		w := httptest.NewRecorder()
 		req, _ := http.NewRequest(
 			http.MethodPut,
-			"/eshop_api/number_plate/condition",
+			"/eshop_api/number_plate/condition/eshop",
 			bytes.NewBuffer(condition),
 		)
 

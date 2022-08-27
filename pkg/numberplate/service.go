@@ -10,7 +10,7 @@ func NewService(cr ConditionRepository) *Service {
 	return &Service{cr}
 }
 
-// PutCondition 更新條件
-func (s *Service) PutCondition(condition PutCondition) error {
-	return s.cr.PutCondition(condition)
+// PutConditionByStoreName 更新條件
+func (s *Service) PutConditionByStoreName(storeName string, condition PutCondition) error {
+	return s.cr.PutConditionByStoreName(storeName, condition)
 }

@@ -2,5 +2,5 @@ package numberplate
 
 // ConditionRepository _
 type ConditionRepository interface {
-	PutCondition(condition PutCondition) error
+	PutConditionByStoreName(storeName string, condition PutCondition) error
 }

@@ -64,10 +64,19 @@ paths:
         500:
           description: internal server error
 
+  /condition/{store_name}:
     put:
       tags:
         - condition setting
       summary: put condition
+      parameters:
+        - name: store_name
+          in: path
+          required: true
+          schema:
+            type: string
+            example: eshop
+          description: store name
       requestBody:
         required: true
         content:
