@@ -1,0 +1,61 @@
+openapi: "3.0.2"
+
+info:
+  title: number plate
+  description: guest can get number plate from entrepreneur
+  version: 0.0.0
+
+servers:
+  - url: http://localhost/eshop_api/number_plate
+    description: localhost
+
+tags:
+  - name: condition setting
+    description: 活動條件設置
+
+components:
+  responses:
+    BadRequestErr:
+      description: bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: bad request
+
+paths:
+  /setting:
+    put:
+      tags:
+        - condition setting
+      summary: put condition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                how_many:
+                  type: int
+                  description: 一次進場多少人
+                how_long:
+                  type: int
+                  description: 進場時間（分）
+                remind:
+                  type: int
+                  description: 多久前提醒進場時間（分）
+              example:
+                how_many: 20
+                how_long: 60
+                remind: 10
+      responses:
+        201:
+          description: created
+        400:
+          $ref: "#/components/responses/BadRequestErr"
+        500:
+          description: internal server error
