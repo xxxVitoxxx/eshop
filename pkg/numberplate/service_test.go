@@ -8,24 +8,35 @@ import (
 	"github.com/xxxVitoxxx/eshop/storage/fake"
 )
 
-func TestPutCondition(t *testing.T) {
+func TestPutConditionByStoreName(t *testing.T) {
 	fakeRepo := fake.NewConditionRepo()
 	s := numberplate.NewService(fakeRepo)
 
 	// mock condition
-	fakeRepo.HowMany = 20
-	fakeRepo.HowLong = 60
-	fakeRepo.Remind = 5
+	fakeRepo.Condition = append(fakeRepo.Condition, []numberplate.Condition{
+		{
+			StoreName: "eshop",
+			HowMany:   15,
+			HowLong:   45,
+			Remind:    5,
+		},
+		{
+			StoreName: "two circle",
+			HowMany:   10,
+			HowLong:   50,
+			Remind:    10,
+		},
+	}...)
 
-	t.Run("PutCondition success", func(t *testing.T) {
+	t.Run("PutConditionByStoreName success", func(t *testing.T) {
 		c := numberplate.PutCondition{
-			HowMany: 15,
+			HowMany: 20,
 			HowLong: 40,
 			Remind:  10,
 		}
-		assert.NoError(t, s.PutCondition(c))
-		assert.Equal(t, c.HowMany, fakeRepo.HowMany)
-		assert.Equal(t, c.HowLong, fakeRepo.HowLong)
-		assert.Equal(t, c.Remind, fakeRepo.Remind)
+		assert.NoError(t, s.PutConditionByStoreName("eshop", c))
+		assert.Equal(t, c.HowMany, fakeRepo.Condition[0].HowMany)
+		assert.Equal(t, c.HowLong, fakeRepo.Condition[0].HowLong)
+		assert.Equal(t, c.Remind, fakeRepo.Condition[0].Remind)
 	})
 }

@@ -8,11 +8,11 @@ import (
 	"github.com/xxxVitoxxx/eshop/storage/conn"
 )
 
-func TestPutCondition(t *testing.T) {
+func TestPutConditionByStoreName(t *testing.T) {
 	db := conn.ConnectToMySQL()
 	repo := NewConditionRepo(db)
 	db.AutoMigrate(&Condition{})
-	// defer db.Migrator().DropTable(&Condition{})
+	defer db.Migrator().DropTable(&Condition{})
 
 	// mock
 	mock := Condition{
@@ -23,13 +23,13 @@ func TestPutCondition(t *testing.T) {
 	}
 	db.Create(mock)
 
-	t.Run("PutCondition success", func(t *testing.T) {
+	t.Run("PutConditionByStoreName success", func(t *testing.T) {
 		condition := numberplate.PutCondition{
 			HowMany: 10,
 			HowLong: 45,
 			Remind:  5,
 		}
-		assert.NoError(t, repo.PutCondition(condition))
+		assert.NoError(t, repo.PutConditionByStoreName(mock.StoreName, condition))
 
 		findDB := Condition{}
 		db.Find(&findDB)

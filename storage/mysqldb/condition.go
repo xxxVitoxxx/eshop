@@ -23,9 +23,9 @@ type Condition struct {
 	Remind    int    `gorm:"size:4; null"`
 }
 
-// PutCondition 更新條件
-func (repo *ConditionRepo) PutCondition(condition numberplate.PutCondition) error {
-	return repo.db.Model(&Condition{}).Where("store_name = ?", "eshop").Updates(map[string]interface{}{
+// PutConditionByStoreName 更新條件
+func (repo *ConditionRepo) PutConditionByStoreName(storeName string, condition numberplate.PutCondition) error {
+	return repo.db.Model(&Condition{}).Where("store_name = ?", storeName).Updates(map[string]interface{}{
 		"how_many": condition.HowMany,
 		"how_long": condition.HowLong,
 		"remind":   condition.Remind,

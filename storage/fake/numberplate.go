@@ -1,21 +1,27 @@
 package fake
 
-import "github.com/xxxVitoxxx/eshop/pkg/numberplate"
+import (
+	"github.com/xxxVitoxxx/eshop/pkg/numberplate"
+)
 
 // ConditionRepo _
 type ConditionRepo struct {
-	HowMany, HowLong, Remind int
+	Condition []numberplate.Condition
 }
 
 // NewConditionRepo will return instance
 func NewConditionRepo() *ConditionRepo {
-	return &ConditionRepo{0, 0, 0}
+	return &ConditionRepo{}
 }
 
-// PutCondition 更新條件
-func (repo *ConditionRepo) PutCondition(condition numberplate.PutCondition) error {
-	repo.HowMany = condition.HowMany
-	repo.HowLong = condition.HowLong
-	repo.Remind = condition.Remind
+// PutConditionByStoreName 更新條件
+func (repo *ConditionRepo) PutConditionByStoreName(storeName string, condition numberplate.PutCondition) error {
+	for i := range repo.Condition {
+		if repo.Condition[i].StoreName == storeName {
+			repo.Condition[i].HowMany = condition.HowMany
+			repo.Condition[i].HowLong = condition.HowLong
+			repo.Condition[i].Remind = condition.Remind
+		}
+	}
 	return nil
 }
