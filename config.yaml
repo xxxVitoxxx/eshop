@@ -1,0 +1,5 @@
+mysql:
+  user: eshop
+  password: eshop!@#
+  address: localhost:3306
+  database: eshop
