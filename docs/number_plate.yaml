@@ -27,7 +27,43 @@ components:
                 example: bad request
 
 paths:
-  /setting:
+  /condition:
+    post:
+      tags:
+        - condition setting
+      summary: create condition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store_name:
+                  type: string
+                  description: store name
+                how_many:
+                  type: integer
+                  description: 一次進場多少人
+                how_long:
+                  type: integer
+                  description: 進場時間（分）
+                remind:
+                  type: integer
+                  description: 多久前提醒進場時間（分）
+              example:
+                store_name: eshop
+                how_many: 20
+                how_long: 60
+                remind: 10
+      responses:
+        201:
+          description: created
+        400:
+          $ref: "#/components/responses/BadRequestErr"
+        500:
+          description: internal server error
+
     put:
       tags:
         - condition setting
@@ -40,13 +76,13 @@ paths:
               type: object
               properties:
                 how_many:
-                  type: int
+                  type: integer
                   description: 一次進場多少人
                 how_long:
-                  type: int
+                  type: integer
                   description: 進場時間（分）
                 remind:
-                  type: int
+                  type: integer
                   description: 多久前提醒進場時間（分）
               example:
                 how_many: 20
