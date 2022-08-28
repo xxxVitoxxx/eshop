@@ -34,6 +34,10 @@ func (repo *ConditionRepo) PutConditionByStoreName(storeName string, condition n
 
 // CreateCondition _
 func (repo *ConditionRepo) CreateCondition(condition numberplate.Condition) error {
-	// TODO: CreateCondition
-	return nil
+	return repo.db.Create(Condition{
+		StoreName: condition.StoreName,
+		HowMany:   condition.HowMany,
+		HowLong:   condition.HowLong,
+		Remind:    condition.Remind,
+	}).Error
 }
