@@ -38,3 +38,28 @@ func TestPutConditionByStoreName(t *testing.T) {
 		assert.Equal(t, findDB.Remind, condition.Remind)
 	})
 }
+
+func TestCreateCondition(t *testing.T) {
+	db := conn.ConnectToMySQL()
+	repo := NewConditionRepo(db)
+	db.AutoMigrate(&Condition{})
+	defer db.Migrator().DropTable(&Condition{})
+
+	t.Run("CreateCondition success", func(t *testing.T) {
+		condition := numberplate.Condition{
+			StoreName: "eshop",
+			HowMany:   15,
+			HowLong:   50,
+			Remind:    10,
+		}
+		err := repo.CreateCondition(condition)
+		assert.NoError(t, err)
+
+		var findDB []Condition
+		db.Find(&findDB)
+		assert.Equal(t, condition.StoreName, findDB[0].StoreName)
+		assert.Equal(t, condition.HowMany, findDB[0].HowMany)
+		assert.Equal(t, condition.HowLong, findDB[0].HowLong)
+		assert.Equal(t, condition.Remind, findDB[0].Remind)
+	})
+}
