@@ -9,8 +9,8 @@ type PutCondition struct {
 
 // Condition _
 type Condition struct {
-	StoreName string `json:"store_name"`
-	HowMany   int    `json:"how_many"`
-	HowLong   int    `json:"how_long"`
-	Remind    int    `json:"remind"`
+	StoreName string `json:"store_name" binding:"required"`
+	HowMany   int    `json:"how_many" binding:"required"`
+	HowLong   int    `json:"how_long" binding:"required"`
+	Remind    int    `json:"remind" binding:"required"`
 }

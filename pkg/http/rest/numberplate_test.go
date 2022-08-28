@@ -38,3 +38,51 @@ func TestPutConditionByStoreName(t *testing.T) {
 		assert.Equal(t, http.StatusCreated, w.Code)
 	})
 }
+
+func TestCreateCondition(t *testing.T) {
+	r := gin.Default()
+	fakeRepo := fake.NewConditionRepo()
+	s := numberplate.NewService(fakeRepo)
+	handler := NewNumberPlateHandler(s)
+	handler.Route(r)
+
+	t.Run("CreateCondition success", func(t *testing.T) {
+		condition, _ := json.Marshal(numberplate.Condition{
+			StoreName: "eshop",
+			HowMany:   20,
+			HowLong:   60,
+			Remind:    5,
+		})
+		w := httptest.NewRecorder()
+		req, _ := http.NewRequest(
+			http.MethodPost,
+			"/eshop_api/number_plate/condition",
+			bytes.NewBuffer(condition),
+		)
+
+		r.ServeHTTP(w, req)
+		assert.Equal(t, http.StatusCreated, w.Code)
+	})
+
+	t.Run("CreateCondition missing required key", func(t *testing.T) {
+		condition, _ := json.Marshal(numberplate.Condition{
+			StoreName: "two circle",
+			HowLong:   120,
+			Remind:    5,
+		})
+		w := httptest.NewRecorder()
+		req, _ := http.NewRequest(
+			http.MethodPost,
+			"/eshop_api/number_plate/condition",
+			bytes.NewBuffer(condition),
+		)
+
+		r.ServeHTTP(w, req)
+		assert.Equal(t, http.StatusBadRequest, w.Code)
+		assert.Equal(
+			t,
+			`{"message":"Key: 'Condition.HowMany' Error:Field validation for 'HowMany' failed on the 'required' tag"}`,
+			w.Body.String(),
+		)
+	})
+}
