@@ -44,6 +44,5 @@ func (repo *ConditionRepo) CreateCondition(condition numberplate.Condition) erro
 
 // DeleteConditionByStoreName _
 func (repo *ConditionRepo) DeleteConditionByStoreName(storeName string) error {
-	// TODO: DeleteConditionByStoreName
-	return nil
+	return repo.db.Where("store_name = ?", storeName).Delete(&Condition{}).Error
 }

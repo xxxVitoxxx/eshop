@@ -63,3 +63,43 @@ func TestCreateCondition(t *testing.T) {
 		assert.Equal(t, condition.Remind, findDB[0].Remind)
 	})
 }
+
+func TestDeleteConditionByStoreName(t *testing.T) {
+	db := conn.ConnectToMySQL()
+	repo := NewConditionRepo(db)
+	db.AutoMigrate(&Condition{})
+	defer db.Migrator().DropTable(&Condition{})
+
+	// mock
+	mock := []Condition{
+		{
+			StoreName: "eshop",
+			HowMany:   20,
+			HowLong:   60,
+			Remind:    5,
+		},
+		{
+			StoreName: "two circle",
+			HowMany:   15,
+			HowLong:   50,
+			Remind:    10,
+		},
+	}
+	db.Create(mock)
+
+	t.Run("DeleteConditionByStoreName success", func(t *testing.T) {
+		assert.NoError(t, repo.DeleteConditionByStoreName("two circle"))
+
+		findDB := []Condition{}
+		db.Find(&findDB)
+		assert.Equal(
+			t,
+			[]Condition{{
+				StoreName: "eshop",
+				HowMany:   20,
+				HowLong:   60,
+				Remind:    5,
+			}},
+			findDB)
+	})
+}
