@@ -120,7 +120,7 @@ paths:
       requestBody:
         required: true
         content:
-          applicaton/json:
+          application/json:
             schema:
               type: object
               properties:
