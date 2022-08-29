@@ -31,3 +31,13 @@ func (repo *ConditionRepo) CreateCondition(condition numberplate.Condition) erro
 	repo.Condition = append(repo.Condition, condition)
 	return nil
 }
+
+// DeleteConditionByStoreName _
+func (repo *ConditionRepo) DeleteConditionByStoreName(storeName string) error {
+	for i := 0; i < len(repo.Condition); i++ {
+		if repo.Condition[i].StoreName == storeName {
+			repo.Condition = append(repo.Condition[:i], repo.Condition[i+1:]...)
+		}
+	}
+	return nil
+}
