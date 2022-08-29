@@ -41,3 +41,9 @@ func (repo *ConditionRepo) CreateCondition(condition numberplate.Condition) erro
 		Remind:    condition.Remind,
 	}).Error
 }
+
+// DeleteConditionByStoreName _
+func (repo *ConditionRepo) DeleteConditionByStoreName(storeName string) error {
+	// TODO: DeleteConditionByStoreName
+	return nil
+}

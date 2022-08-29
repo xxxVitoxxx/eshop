@@ -19,3 +19,8 @@ func (s *Service) PutConditionByStoreName(storeName string, condition PutConditi
 func (s *Service) CreateCondition(condition Condition) error {
 	return s.cr.CreateCondition(condition)
 }
+
+// DeleteConditionByStoreName _
+func (s *Service) DeleteConditionByStoreName(storeName string) error {
+	return s.cr.DeleteConditionByStoreName(storeName)
+}
