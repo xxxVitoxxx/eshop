@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -22,6 +23,7 @@ func (h *NumberPlateHandler) Route(r *gin.Engine) {
 
 	api.PUT("/condition/:store_name", h.PutConditionByStoreName)
 	api.POST("/condition", h.CreateCondition)
+	api.DELETE("/condition/:store_name", h.DeleteConditionByStoreName)
 }
 
 // PutConditionByStoreName _
@@ -61,4 +63,17 @@ func (h *NumberPlateHandler) CreateCondition(c *gin.Context) {
 		return
 	}
 	c.Status(http.StatusCreated)
+}
+
+// DeleteConditionByStoreName _
+func (h *NumberPlateHandler) DeleteConditionByStoreName(c *gin.Context) {
+	storeName := c.Param("store_name")
+	fmt.Println(storeName)
+	if err := h.s.DeleteConditionByStoreName(storeName); err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	c.Status(http.StatusOK)
 }

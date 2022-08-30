@@ -17,8 +17,9 @@ import (
 	"github.com/xxxVitoxxx/eshop/pkg/http/rest"
 	"github.com/xxxVitoxxx/eshop/pkg/logger"
 	"github.com/xxxVitoxxx/eshop/pkg/numberplate"
-	"github.com/xxxVitoxxx/eshop/storage/conn"
-	"github.com/xxxVitoxxx/eshop/storage/mysqldb"
+	"github.com/xxxVitoxxx/eshop/pkg/storage/conn"
+	"github.com/xxxVitoxxx/eshop/pkg/storage/mysqldb"
+
 	"go.uber.org/zap"
 )
 

@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/xxxVitoxxx/eshop/pkg/numberplate"
-	"github.com/xxxVitoxxx/eshop/storage/fake"
+	"github.com/xxxVitoxxx/eshop/pkg/storage/fake"
 )
 
 func TestPutConditionByStoreName(t *testing.T) {
@@ -84,5 +84,24 @@ func TestCreateCondition(t *testing.T) {
 			`{"message":"Key: 'Condition.HowMany' Error:Field validation for 'HowMany' failed on the 'required' tag"}`,
 			w.Body.String(),
 		)
+	})
+}
+
+func TestDeleteConditionByStoreName(t *testing.T) {
+	r := gin.Default()
+	fakeRepo := fake.NewConditionRepo()
+	handler := NewNumberPlateHandler(numberplate.NewService(fakeRepo))
+	handler.Route(r)
+
+	t.Run("DeleteConditionByStoreName success", func(t *testing.T) {
+		w := httptest.NewRecorder()
+		req, _ := http.NewRequest(
+			http.MethodDelete,
+			"/eshop_api/number_plate/condition/eshop",
+			nil,
+		)
+
+		r.ServeHTTP(w, req)
+		assert.Equal(t, http.StatusOK, w.Code)
 	})
 }
