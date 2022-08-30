@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/xxxVitoxxx/eshop/pkg/numberplate"
-	"github.com/xxxVitoxxx/eshop/storage/conn"
+	"github.com/xxxVitoxxx/eshop/pkg/storage/conn"
 )
 
 func TestPutConditionByStoreName(t *testing.T) {
